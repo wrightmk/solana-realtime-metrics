@@ -1,0 +1,81 @@
+html {
+  height: 100%;
+  font-size: 62.5%; /* Set base font size to 10px */
+}
+
+body {
+  margin: 0;
+  line-height: 1.5; /* Default line-height for body text */
+  display: block;
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  background: #000;
+  color: #E4E4E4;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+	margin: 0; 
+	padding: 0;
+	vertical-align: middle;
+  color:: #000;
+}
+
+
+/* Main container for the dashboard */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Dashboard title styling */
+.dashboard-title {
+  font-size: 4.5rem;
+  margin-bottom: 4rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Grid container for charts */
+.chart-container {
+  width: 100%;
+  max-width: 1200px;
+
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-gap: 1rem; 
+
+  @media (max-width: 768px) {
+    grid-template-columns: 100%;
+  }
+}
+
+/* Individual card styling */
+.chart-card {
+  height: 400px;
+  background-color: #121212;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+
+/* Loading styles */
+.loading-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.loading-wrapper p {
+  font-size: 2rem;
+  margin-bottom: 4rem;
+}
