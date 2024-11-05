@@ -89,7 +89,7 @@ const WalletBalanceBarChart: React.FC<WalletBalanceBarChartProps> = ({
         formatter: (val: number) => val.toFixed(8), // Format the balance to 8 decimal places
       },
       x: {
-        formatter: (val: number) => address[val], // Show full address in tooltip
+        formatter: (val: number) => val, // Show full address in tooltip
       },
       style: {
         fontSize: "14px",

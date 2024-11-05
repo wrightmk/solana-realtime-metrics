@@ -115,3 +115,4 @@ Testing is primarily handled with Vitest and React Testing Library. There are 7 
 - Rename types for clarity, make sure they are being used everywhere. Use interface for RPC response types to extend a common response base interface
 - Use seriesData instead of data const for empty array guard so it takes into account the useEffect computation and doesn't flicker different data
 - add loading spinner svg animation
+- fix undefined tooltip labels on WalletBalanceBarChart
