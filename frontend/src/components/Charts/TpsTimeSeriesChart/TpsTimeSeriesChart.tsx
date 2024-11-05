@@ -22,7 +22,7 @@ const TpsTimeSeriesChart: React.FC<TpsTimeSeriesChartProps> = ({ data }) => {
     setSeriesData(transformedData);
   }, [data]);
 
-  if (data.length === 0) {
+  if (seriesData.length === 0) {
     return <Loading />;
   }
 
