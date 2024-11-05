@@ -5,10 +5,6 @@ import { TpsResponse } from "../types.js";
 // Fetch TPS data from the Solana RPC
 export const fetchTps = async () => {
   try {
-    const cacheKey = "tpsData";
-    const cachedData = await getCachedData(cacheKey);
-    if (cachedData) return cachedData;
-
     const response = await fetch(EXTRNODE_URL, {
       method: "POST",
       headers: {
@@ -37,7 +33,6 @@ export const fetchTps = async () => {
       tps: sample.numTransactions / sample.samplePeriodSecs, // TPS calculation
     }));
 
-    await setCachedData(cacheKey, tpsData, 60); // Cache for 1 minute to keep data fresh since samplePeriodSecs is 1 minute
     return tpsData;
   } catch (error) {
     console.error("Error fetching TPS data:", error);

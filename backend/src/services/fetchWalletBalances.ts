@@ -4,13 +4,8 @@ import { API_TOKEN, EXTRNODE_URL, WALLETS } from "../constants.js";
 // Fetch wallet balances for the specified wallets
 export const fetchWalletBalances = async () => {
   try {
-    const cacheKey = "walletBalanceData";
-    const cachedData = await getCachedData(cacheKey);
-    if (cachedData) return cachedData;
-
     const balances = await getMultipleAccountsBalances(WALLETS);
 
-    await setCachedData(cacheKey, balances, 300); // Cache for 5 minutes
     return balances;
   } catch (error) {
     console.error("Error fetching wallet balances:", error);

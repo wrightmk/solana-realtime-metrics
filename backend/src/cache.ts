@@ -19,3 +19,16 @@ export const getCachedData = async (key: string) => {
 export const setCachedData = async (key: string, value: any, ttl: number) => {
   await redis.set(key, JSON.stringify(value), "EX", ttl);
 };
+
+export const getOrSetCache = async <T>(
+  cacheKey: string,
+  fetchFunction: () => Promise<T>,
+  ttl: number
+): Promise<T> => {
+  const cachedData = await getCachedData(cacheKey);
+  if (cachedData) return cachedData;
+
+  const data = await fetchFunction();
+  await setCachedData(cacheKey, data, ttl);
+  return data;
+};

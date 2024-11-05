@@ -10,10 +10,6 @@ import { SupplyResponse } from "../types.js";
 // Fetch token supply, price, and calculate market cap
 export const fetchMarketCap = async () => {
   try {
-    const cacheKey = "marketCapData";
-    const cachedData = await getCachedData(cacheKey);
-    if (cachedData) return cachedData;
-
     const mintAddresses = SPL_TOKEN_MINT_ADDRESSES.map(
       (token) => token.mintAddress
     );
@@ -31,14 +27,10 @@ export const fetchMarketCap = async () => {
       return { name: token.name, marketCap: supply * price };
     });
 
-    await setCachedData(cacheKey, marketCapData, 300); // Cache market cap data for 5 minutes
     return marketCapData;
   } catch (error) {
     console.error("Error fetching market cap data:", error);
-    return {
-      name: "",
-      marketCap: 0,
-    };
+    return [];
   }
 };
 

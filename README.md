@@ -110,3 +110,5 @@ Testing is primarily handled with Vitest and React Testing Library. There are 7 
 
 - Token price data should not have been cached because theres a guard preventing the flow from making it there
 - marketCapData should have been cached for 5 mins not 1 min
+- refactor service cache guard into a util
+- fetchMarketCap try/catch should return an array not an object
