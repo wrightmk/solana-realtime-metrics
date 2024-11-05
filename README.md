@@ -105,3 +105,8 @@ Testing is primarily handled with Vitest and React Testing Library. There are 7 
 - Making sure page has loaded
 - Check that data is passed into into each of the 3 charts
 - If data isn't loaded into a chart, it tests whether a loading message displays for each of the 3 charts
+
+#### Updates / Bugfixes
+
+- Token price data should not have been cached because theres a guard preventing the flow from making it there
+- marketCapData should have been cached for 5 mins not 1 min

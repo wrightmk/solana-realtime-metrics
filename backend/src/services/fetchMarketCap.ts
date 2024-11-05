@@ -31,7 +31,7 @@ export const fetchMarketCap = async () => {
       return { name: token.name, marketCap: supply * price };
     });
 
-    await setCachedData(cacheKey, marketCapData, 60); // Cache market cap data for 10 minutes
+    await setCachedData(cacheKey, marketCapData, 300); // Cache market cap data for 5 minutes
     return marketCapData;
   } catch (error) {
     console.error("Error fetching market cap data:", error);
@@ -46,10 +46,6 @@ export const fetchMarketCap = async () => {
 const fetchTokenPrices = async (
   tokens: { name: string; id: string; mintAddress: string }[]
 ): Promise<Record<string, number>> => {
-  const cacheKey = "priceData";
-  const cachedPrices = await getCachedData(cacheKey);
-  if (cachedPrices) return cachedPrices;
-
   const tokenIds = tokens.map((token) => token.id).join(",");
   const response = await fetch(
     `${COINGECKO_PRICE_URL}?ids=${tokenIds}&vs_currencies=usd`
@@ -61,7 +57,6 @@ const fetchTokenPrices = async (
     priceMap[token.name] = json[token.id]?.usd || 0;
   });
 
-  await setCachedData(cacheKey, priceMap, 300); // Cache prices for 5 minutes
   return priceMap;
 };
 
