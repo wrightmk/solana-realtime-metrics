@@ -1,4 +1,8 @@
-export type SupplyResponse = {
+interface TResponseBase {
+  error?: { message: string };
+}
+
+export interface TSupplyResponse extends TResponseBase {
   result: {
     value: {
       amount: string;
@@ -7,10 +11,9 @@ export type SupplyResponse = {
       uiAmountString: string;
     };
   };
-  error?: { message: string };
-};
+}
 
-export type TpsResponse = {
+export interface TTpsResponse extends TResponseBase {
   result: {
     numTransactions: number;
     samplePeriodSecs: number;
@@ -18,9 +21,25 @@ export type TpsResponse = {
     numSlots: number;
     slot: number;
   }[];
-  error?: { message: string };
+}
+
+export interface TWalletBalanceResponse extends TResponseBase {
+  result: {
+    value: {
+      data: string[];
+      executable: boolean;
+      lamports: number;
+      owner: string;
+      rentEpoch: number;
+      space: number;
+    }[];
+  };
+}
+
+export type TPriceResponse = {
+  [key: string]: { usd: number };
 };
 
-export type MarketCap = { name: string; marketCap: number };
-export type Tps = { slot: number; tps: number };
-export type WalletBalance = { address: string; balance: number };
+export type TTMarketCap = { name: string; marketCap: number };
+export type TTps = { slot: number; tps: number };
+export type TWalletBalance = { address: string; balance: number };

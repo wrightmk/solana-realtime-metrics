@@ -1,11 +1,10 @@
-import { getCachedData, setCachedData } from "../cache.js";
 import {
   API_TOKEN,
   COINGECKO_PRICE_URL,
   EXTRNODE_URL,
   SPL_TOKEN_MINT_ADDRESSES,
 } from "../constants.js";
-import { SupplyResponse } from "../types.js";
+import { TSupplyResponse, TPriceResponse, TTMarketCap } from "../types.js";
 
 // Fetch token supply, price, and calculate market cap
 export const fetchMarketCap = async () => {
@@ -21,11 +20,13 @@ export const fetchMarketCap = async () => {
     ]);
 
     // Calculate market cap data by mapping supplies and prices
-    const marketCapData = SPL_TOKEN_MINT_ADDRESSES.map((token) => {
-      const supply = supplyResponses[token.mintAddress] || 0; // Default to 0 if not found
-      const price = priceResponses[token.name] || 0; // Default to 0 if not found
-      return { name: token.name, marketCap: supply * price };
-    });
+    const marketCapData: TTMarketCap[] = SPL_TOKEN_MINT_ADDRESSES.map(
+      (token) => {
+        const supply = supplyResponses[token.mintAddress] || 0; // Default to 0 if not found
+        const price = priceResponses[token.name] || 0; // Default to 0 if not found
+        return { name: token.name, marketCap: supply * price };
+      }
+    );
 
     return marketCapData;
   } catch (error) {
@@ -42,7 +43,7 @@ const fetchTokenPrices = async (
   const response = await fetch(
     `${COINGECKO_PRICE_URL}?ids=${tokenIds}&vs_currencies=usd`
   );
-  const json = (await response.json()) as { [key: string]: { usd: number } };
+  const json = (await response.json()) as TPriceResponse;
 
   const priceMap: Record<string, number> = {};
   tokens.forEach((token) => {
@@ -87,7 +88,7 @@ const getTokenSupply = async (address: string): Promise<number> => {
     }),
   });
 
-  const json = (await response.json()) as SupplyResponse;
+  const json = (await response.json()) as TSupplyResponse;
 
   if (json.error) {
     throw new Error(

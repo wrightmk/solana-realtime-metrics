@@ -1,9 +1,10 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
 import Loading from "../../Loading";
+import { TMarketCap } from "../../../types";
 
 type MarketCapPieChartProps = {
-  data: { name: string; marketCap: number }[];
+  data: TMarketCap[];
 };
 
 const MarketCapPieChart: React.FC<MarketCapPieChartProps> = ({ data }) => {

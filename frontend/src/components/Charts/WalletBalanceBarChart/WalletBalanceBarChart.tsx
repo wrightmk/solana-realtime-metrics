@@ -1,10 +1,10 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
 import Loading from "../../Loading";
-import { WalletBalance } from "../../../types";
+import { TWalletBalance } from "../../../types";
 
 type WalletBalanceBarChartProps = {
-  data: WalletBalance[];
+  data: TWalletBalance[];
 };
 
 const WalletBalanceBarChart: React.FC<WalletBalanceBarChartProps> = ({

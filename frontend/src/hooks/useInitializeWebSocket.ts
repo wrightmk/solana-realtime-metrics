@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { initializeWebSocket, MetricData } from "../services/websocketService";
-import { MarketCap, Tps, WalletBalance } from "../types";
+import { TMarketCap, TTps, TWalletBalance } from "../types";
 
 export default function useInitializeWebSocket() {
-  const [marketCapData, setMarketCapData] = useState<MarketCap[]>([]);
-  const [tpsData, setTpsData] = useState<Tps[]>([]);
-  const [walletBalanceData, setWalletBalanceData] = useState<WalletBalance[]>(
+  const [marketCapData, setMarketCapData] = useState<TMarketCap[]>([]);
+  const [tpsData, setTpsData] = useState<TTps[]>([]);
+  const [walletBalanceData, setWalletBalanceData] = useState<TWalletBalance[]>(
     []
   );
 

@@ -3,7 +3,7 @@ import { fetchMarketCap } from "./services/fetchMarketCap.js";
 import { fetchTps } from "./services/fetchTps.js";
 import { fetchWalletBalances } from "./services/fetchWalletBalances.js";
 import { getOrSetCache } from "./cache.js";
-import { MarketCap, Tps, WalletBalance } from "./types.js";
+import { TTMarketCap, TTps, TWalletBalance } from "./types.js";
 
 const wssPort = 8080;
 
@@ -14,13 +14,13 @@ wss.on("connection", (ws) => {
 
   // Send initial data for each metric
   const sendInitialData = async () => {
-    const marketCap = await getOrSetCache<MarketCap[]>(
+    const marketCap = await getOrSetCache<TTMarketCap[]>(
       "marketCapData",
       fetchMarketCap,
       300
     );
-    const tps = await getOrSetCache<Tps[]>("tpsData", fetchTps, 60);
-    const walletBalances = await getOrSetCache<WalletBalance[]>(
+    const tps = await getOrSetCache<TTps[]>("tpsData", fetchTps, 60);
+    const walletBalances = await getOrSetCache<TWalletBalance[]>(
       "walletBalanceData",
       fetchWalletBalances,
       300
@@ -34,7 +34,7 @@ wss.on("connection", (ws) => {
   // Set intervals to poll for updates and broadcast to clients
   const intervals = {
     marketCap: setInterval(async () => {
-      const data = await getOrSetCache<MarketCap[]>(
+      const data = await getOrSetCache<TTMarketCap[]>(
         "marketCapData",
         fetchMarketCap,
         300
@@ -43,12 +43,12 @@ wss.on("connection", (ws) => {
     }, 300000), // Every 5 minutes
 
     tps: setInterval(async () => {
-      const data = await getOrSetCache<Tps[]>("tpsData", fetchTps, 60); // Cache for 1 minute to keep data fresh since samplePeriodSecs is 1 minute
+      const data = await getOrSetCache<TTps[]>("tpsData", fetchTps, 60); // Cache for 1 minute to keep data fresh since samplePeriodSecs is 1 minute
       ws.send(JSON.stringify({ tps: data }));
     }, 60000), // Every 60 seconds
 
     walletBalances: setInterval(async () => {
-      const data = await getOrSetCache<WalletBalance[]>(
+      const data = await getOrSetCache<TWalletBalance[]>(
         "walletBalanceData",
         fetchWalletBalances,
         300

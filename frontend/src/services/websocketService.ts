@@ -1,9 +1,9 @@
-import { MarketCap, Tps, WalletBalance } from "../types";
+import { TMarketCap, TTps, TWalletBalance } from "../types";
 
 export type MetricData = {
-  marketCap?: MarketCap[];
-  tps?: Tps[];
-  walletBalances?: WalletBalance[];
+  marketCap?: TMarketCap[];
+  tps?: TTps[];
+  walletBalances?: TWalletBalance[];
 };
 
 export const mockWebSocketData = (data: MetricData) => {

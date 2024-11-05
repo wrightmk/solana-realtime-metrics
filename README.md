@@ -112,3 +112,4 @@ Testing is primarily handled with Vitest and React Testing Library. There are 7 
 - marketCapData should have been cached for 5 mins not 1 min
 - refactor service cache guard into a util
 - fetchMarketCap try/catch should return an array not an object
+- Rename types for clarity, make sure they are being used everywhere. Use interface for RPC response types to extend a common response base interface

@@ -1,10 +1,12 @@
-import { getCachedData, setCachedData } from "../cache.js";
 import { API_TOKEN, EXTRNODE_URL, WALLETS } from "../constants.js";
+import { TWalletBalance, TWalletBalanceResponse } from "../types.js";
 
 // Fetch wallet balances for the specified wallets
 export const fetchWalletBalances = async () => {
   try {
-    const balances = await getMultipleAccountsBalances(WALLETS);
+    const balances: TWalletBalance[] = await getMultipleAccountsBalances(
+      WALLETS
+    );
 
     return balances;
   } catch (error) {
@@ -31,20 +33,7 @@ const getMultipleAccountsBalances = async (
     }),
   });
 
-  const json = (await response.json()) as {
-    result: {
-      value: {
-        data: string[];
-        executable: boolean;
-        lamports: number;
-        owner: string;
-        rentEpoch: number;
-        space: number;
-      }[];
-    };
-    error?: { message: string };
-  };
-
+  const json = (await response.json()) as TWalletBalanceResponse;
   // Check for errors
   if (json.error) {
     throw new Error(`Error fetching multiple accounts: ${json.error.message}`);

@@ -1,6 +1,5 @@
-import { getCachedData, setCachedData } from "../cache.js";
 import { API_TOKEN, EXTRNODE_URL } from "../constants.js";
-import { TpsResponse } from "../types.js";
+import { TTpsResponse, TTps } from "../types.js";
 
 // Fetch TPS data from the Solana RPC
 export const fetchTps = async () => {
@@ -19,7 +18,7 @@ export const fetchTps = async () => {
       }),
     });
 
-    const json = (await response.json()) as TpsResponse;
+    const json = (await response.json()) as TTpsResponse;
 
     if (json.error) {
       throw new Error(`Error fetching TPS: ${json.error.message}`);
@@ -28,7 +27,7 @@ export const fetchTps = async () => {
     const samples = json?.result || [];
 
     // Transform each sample to calculate TPS and map it to slot and TPS
-    const tpsData = samples.map((sample) => ({
+    const tpsData: TTps[] = samples.map((sample) => ({
       slot: sample.slot,
       tps: sample.numTransactions / sample.samplePeriodSecs, // TPS calculation
     }));
