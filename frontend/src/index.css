@@ -79,3 +79,11 @@ p {
   font-size: 2rem;
   margin-bottom: 4rem;
 }
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 2rem;
+}

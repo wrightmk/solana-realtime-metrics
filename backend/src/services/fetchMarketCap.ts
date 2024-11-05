@@ -96,5 +96,5 @@ const getTokenSupply = async (address: string): Promise<number> => {
     );
   }
 
-  return json.result.value.uiAmount;
+  return json.result?.value?.uiAmount;
 };
